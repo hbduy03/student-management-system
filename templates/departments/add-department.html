@@ -1,0 +1,72 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="page-wrapper">
+<div class="content container-fluid">
+
+<div class="page-header">
+<div class="row align-items-center">
+<div class="col">
+<h3 class="page-title">Add Department</h3>
+<ul class="breadcrumb">
+<li class="breadcrumb-item"><a href="{% url 'add-department' %}">Department</a></li>
+<li class="breadcrumb-item active">Add Department</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-12">
+<div class="card">
+<div class="card-body">
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+<form method="post" action="{%url 'add-department' %}">
+    {% csrf_token %}
+<div class="row">
+<div class="col-12">
+<h5 class="form-title"><span>Department Details</span></h5>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Department ID</label>
+<input type="text" name="department_id" class="form-control">
+</div>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Department Name</label>
+<input type="text" name="name" class="form-control">
+</div>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Head of Department</label>
+    <select class="form-control" name="hod">
+        <option value="">Select Teacher</option>
+        {% for teacher in teachers %}
+        <option value ="{{teacher.id}}">{{teacher.name}}</option>
+        {% endfor %}
+    </select>
+</div>
+</div>
+<div class="col-12">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
