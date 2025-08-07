@@ -88,9 +88,8 @@
                                     <div class="form-group">
                                        <label>Major</label>
                                        <select class="form-control" name="major">
-                                          <option value="">Select Classroom</option>
                                           {% for major in majors %}
-                                          <option value="{{ major.name }}" {% if student.major.name == major.name %} selected {% endif %}>{{ major.name }}</option>
+                                          <option value="{{ major.id }}" {% if student.major.id == major.id %} selected {% endif %}>{{ major.name }}</option>
                                           {% endfor %}
                                        </select>
                                     </div>
