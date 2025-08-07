@@ -6,8 +6,6 @@ class Department(models.Model):
     hod = models.OneToOneField('teacher.Teacher', on_delete=models.SET_NULL, blank=True, null=True, related_name='header_department')
     created_at = models.DateTimeField(auto_now_add=True)
 
-
-
     def __str__(self):
         return self.name
 

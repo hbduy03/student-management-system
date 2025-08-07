@@ -18,7 +18,7 @@ class Teacher(models.Model):
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f'{self.user.first_name}-{self.user.last_name}-{self.slug}')
+            self.slug = slugify(f'{self.user.first_name}-{self.user.last_name}-{self.user.username}')
         super(Teacher, self).save(*args, **kwargs)
 
     def __str__(self):
