@@ -13,13 +13,13 @@ class Teacher(models.Model):
     date_of_birth = models.DateField()
     mobile_number = models.CharField(max_length=15)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, null=True, blank=True)
-    teacher_image = models.ImageField(upload_to='teacher/', blank=True)
+    teacher_image = models.ImageField(upload_to='profile/teacher/', blank=True)
     slug = models.SlugField(max_length=255, unique=True,blank=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:
-            self.slug = slugify(f'{self.user.first_name}-{self.user.last_name}-{self.teacher_id}')
+            self.slug = slugify(f'{self.user.first_name}-{self.user.last_name}-{self.slug}')
         super(Teacher, self).save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.user.first_name} {self.user.last_name} ({self.teacher_id})'
+        return f'{self.user.first_name} {self.user.last_name} ({self.slug})'

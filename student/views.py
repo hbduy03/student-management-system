@@ -26,6 +26,9 @@ def add_student(request):
         student_image = request.FILES.get('student_image')
         student_class_obj = None
         major_obj = None
+        if email:
+            if CustomUser.object.filter(email = email).exist():
+                return redirect('add_student')
         if student_class:
             student_class_obj = Classroom.objects.get(id=student_class)
         if major:

@@ -11,10 +11,8 @@ def add_teacher(request):
     if request.method == 'POST':
         first_name =  request.POST.get('first_name')
         last_name =  request.POST.get('last_name')
-        teacher_id =  request.POST.get('teacher_id')
         gender =  request.POST.get('gender')
         date_of_birth =  request.POST.get('date_of_birth')
-        religion =  request.POST.get('religion')
         joining_date =  request.POST.get('joining_date')
         mobile_number =  request.POST.get('mobile_number')
         admission_number =  request.POST.get('admission_number')
