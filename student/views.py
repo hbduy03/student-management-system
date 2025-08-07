@@ -27,7 +27,7 @@ def add_student(request):
         student_class_obj = None
         major_obj = None
         if email:
-            if CustomUser.object.filter(email = email).exist():
+            if CustomUser.objects.filter(email = email).exists():
                 return redirect('add_student')
         if student_class:
             student_class_obj = Classroom.objects.get(id=student_class)
@@ -151,8 +151,10 @@ def edit_student(request, slug):
         parent.save()
 
         user.email = email
-        student.first_name =  first_name
-        student.last_name =  last_name
+        user.first_name =  first_name
+        user.last_name =  last_name
+        user.save()
+
         student.gender =  gender
         student.date_of_birth =  date_of_birth
         student.mobile_number = mobile_number
@@ -185,8 +187,9 @@ def delete_student(request, slug):
         user.delete()
         parent = student.parent
         parent.delete()
+        if student.student_image and os.path.isfile(student.student_image.path):
+            os.remove(student.student_image.path)
         student.delete()
         create_notification(request.user, f' Deleted student: {student.user.first_name} {student.user.last_name }')
         return redirect('student_list')
-
     return HttpResponseForbidden()
