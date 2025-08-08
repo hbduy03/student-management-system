@@ -8,15 +8,15 @@
 <div class="page-header">
 <div class="row align-items-center">
 <div class="col">
-<h3 class="page-title">Departments</h3>
+<h3 class="page-title">Majors</h3>
 <ul class="breadcrumb">
 <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-<li class="breadcrumb-item active">Departments</li>
+<li class="breadcrumb-item active">Majors</li>
 </ul>
 </div>
 <div class="col-auto text-right float-right ml-auto">
 <a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
-<a href="{% url 'add_department' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+<a href="{% url 'add_major' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
 </div>
 </div>
 </div>
@@ -31,30 +31,30 @@
 <tr>
 <th>ID</th>
 <th>Name</th>
-<th>HOD</th>
+<th>Department</th>
 <th>Started Year</th>
 <th class="text-right">Action</th>
 </tr>
 </thead>
 <tbody>
-{% for department in department_list %}
+{% for major in major_list %}
 <tr>
-<td>{{department.department_id}}</td>
+<td>{{major.major_id}}</td>
 <td>
 <h2>
-<a>{{department.name}}</a>
+<a>{{major.name}}</a>
 </h2>
 </td>
-<td>{{department.hod.user.first_name}}</td>
-<td>{{department.created_at}}</td>
+<td>{{major.department.name}}</td>
+<td>{{major.created_at}}</td>
 <td class="text-right">
 <div class="actions">
-<a href="{% url 'edit_department' department.id %}" class="btn btn-sm bg-success-light mr-2">
+<a href="{% url 'edit_major' major.id %}" class="btn btn-sm bg-success-light mr-2">
 <i class="fas fa-pen"></i>
 </a>
- <form action="{% url 'delete_department' department.id %}" method="POST" style="display:inline;">
+ <form action="{% url 'delete_major' major.id %}" method="POST" style="display:inline;">
     {% csrf_token %}
-    <button type ="submit" class="btn btn-sm bg-danger-light" onclick="return  confirm('Are you sure you want to delete this department ?');">
+    <button type ="submit" class="btn btn-sm bg-danger-light" onclick="return  confirm('Are you sure you want to delete this major ?');">
     <i class="fas fa-trash"></i>
     </button>
  </form>

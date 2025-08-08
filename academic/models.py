@@ -12,7 +12,7 @@ class Department(models.Model):
 class Major (models.Model):
     major_id = models.CharField(max_length=10,
                                 unique=True)
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length= 50)
     department = models.ForeignKey(Department, on_delete=models.SET_NULL, blank=True, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

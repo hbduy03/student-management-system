@@ -8,10 +8,10 @@
 <div class="page-header">
 <div class="row align-items-center">
 <div class="col">
-<h3 class="page-title">Add Department</h3>
+<h3 class="page-title">Edit Major</h3>
 <ul class="breadcrumb">
-<li class="breadcrumb-item"><a href="{% url 'department_list' %}">Department</a></li>
-<li class="breadcrumb-item active">Add Department</li>
+<li class="breadcrumb-item"><a href="{% url 'major_list' %}">Major</a></li>
+<li class="breadcrumb-item active">Edit Major</li>
 </ul>
 </div>
 </div>
@@ -28,31 +28,31 @@
     </div>
   {% endfor %}
 {% endif %}
-<form method="post" action="{%url 'add_department' %}">
+<form method="post" action="{% url 'edit_major' major.id %}">
     {% csrf_token %}
 <div class="row">
 <div class="col-12">
-<h5 class="form-title"><span>Department Details</span></h5>
+<h5 class="form-title"><span>Major Details</span></h5>
 </div>
 <div class="col-12 col-sm-6">
 <div class="form-group">
-<label>Department ID</label>
-<input type="text" name="department_id" class="form-control">
-</div>
-</div>
-<div class="col-12 col-sm-6">
-<div class="form-group">
-<label>Department Name</label>
-<input type="text" name="name" class="form-control">
+<label>Major ID</label>
+<input type="text" name="major_id" value ="{{major.major_id}}" class="form-control">
 </div>
 </div>
 <div class="col-12 col-sm-6">
 <div class="form-group">
-<label>Head of Department</label>
-    <select class="form-control" name="hod">
-        <option value ="">Select Department</option>
-        {% for teacher in teachers %}
-        <option value ="{{teacher.id}}">{{teacher.user.first_name}} {{teacher.user.last_name}} ({{teacher.user.username}})</option>
+<label>Major Name</label>
+<input type="text" name="name" value ="{{major.name}}" class="form-control">
+</div>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Department</label>
+    <select class="form-control" name="department">
+        <option value ="">Select Major</option>
+        {% for department in departments %}
+        <option value ="{{department.id}} " {% if major.department.id == department.id %} selected {% endif %} >{{department.name}}</option>
         {% endfor %}
     </select>
 </div>
