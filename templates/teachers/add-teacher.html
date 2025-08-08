@@ -63,17 +63,6 @@
                                  </div>
                                  <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                       <label>Class</label>
-                                       <select class="form-control" name="student_class" required>
-                                          <option value="">Select Classroom</option>
-                                          {% for classroom in classrooms %}
-                                          <option value ="{{classroom.id}}">{{classroom.name}}</option>
-                                          {% endfor %}
-                                       </select>
-                                    </div>
-                                 </div>
-                                 <div class="col-12 col-sm-6">
-                                    <div class="form-group">
                                        <label>Address</label>
                                        <input type="text" class="form-control" name="address" required>
                                     </div>
@@ -88,8 +77,9 @@
                                     <div class="form-group">
                                        <label>Department</label>
                                        <select class="form-control" name="department">
-                                          {% for department in s %}
-                                          <option value ="{{departments.name}}">{{departments.name}}</option>
+                                          <option value ="">Select Department</option>
+                                          {% for department in departments %}
+                                          <option value ="{{department.id}}">{{department.name}}</option>
                                           {% endfor %}
                                        </select>
                                     </div>

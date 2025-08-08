@@ -56,7 +56,7 @@
                                        <td>{{teacher.date_of_birth|date:"d M Y"}}</td>
                                        <td>{{teacher.department.name}}</td>
                                        <td>{{teacher.mobile_number}}</td>
-                                       <td>{{teacher.parent.present_address}}</td>
+                                       <td>{{teacher.address}}</td>
                                        <td class="text-right">
                                           <div class="actions">
                                              <a href="{% url 'edit_teacher' teacher.slug %}" class="btn btn-sm bg-success-light mr-2">
