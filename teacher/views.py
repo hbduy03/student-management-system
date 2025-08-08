@@ -126,7 +126,7 @@ def edit_teacher(request, slug):
     return render(request, 'teachers/edit-teacher.html', context)
 
 def view_teacher(request, slug):
-    teacher = get_object_or_404(Teacher, teacher_id = slug)
+    teacher = get_object_or_404(Teacher, slug = slug)
     context ={
         'teacher': teacher
     }
