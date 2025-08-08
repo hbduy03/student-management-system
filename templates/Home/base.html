@@ -129,9 +129,15 @@
                      <li class="submenu">
                         <a href="#"><i class="fas fa-building"></i> <span> Departments</span> <span class="menu-arrow"></span></a>
                         <ul>
-                           <li><a href="departments.html">Department List</a></li>
-                           <li><a href="{% url 'add-department' %}">Department Add</a></li>
-                           <li><a href="edit-department.html">Department Edit</a></li>
+                           <li><a href="{% url 'department_list' %}">Department List</a></li>
+                           <li><a href="{% url 'add_department' %}">Department Add</a></li>
+                        </ul>
+                     </li>
+                     <li class="submenu">
+                        <a href="#"><i class="fas fa-school"></i></i> <span> Majors</span> <span class="menu-arrow"></span></a>
+                        <ul>
+                           <li><a href="{% url 'major_list' %}">Major List</a></li>
+                           <li><a href="{% url 'add_major' %}">Major Add</a></li>
                         </ul>
                      </li>
                      <li class="submenu">

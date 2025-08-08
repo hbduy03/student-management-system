@@ -8,10 +8,10 @@
 <div class="page-header">
 <div class="row align-items-center">
 <div class="col">
-<h3 class="page-title">Add Department</h3>
+<h3 class="page-title">Edit Department</h3>
 <ul class="breadcrumb">
 <li class="breadcrumb-item"><a href="{% url 'department_list' %}">Department</a></li>
-<li class="breadcrumb-item active">Add Department</li>
+<li class="breadcrumb-item active">Edit Department</li>
 </ul>
 </div>
 </div>
@@ -28,7 +28,7 @@
     </div>
   {% endfor %}
 {% endif %}
-<form method="post" action="{%url 'add_department' %}">
+<form method="post" action="{% url 'edit_department' department.id %}">
     {% csrf_token %}
 <div class="row">
 <div class="col-12">
@@ -37,13 +37,13 @@
 <div class="col-12 col-sm-6">
 <div class="form-group">
 <label>Department ID</label>
-<input type="text" name="department_id" class="form-control">
+<input type="text" name="department_id" value ="{{department.department_id}}" class="form-control">
 </div>
 </div>
 <div class="col-12 col-sm-6">
 <div class="form-group">
 <label>Department Name</label>
-<input type="text" name="name" class="form-control">
+<input type="text" name="name" value ="{{department.name}}" class="form-control">
 </div>
 </div>
 <div class="col-12 col-sm-6">
@@ -52,7 +52,7 @@
     <select class="form-control" name="hod">
         <option value ="">Select Department</option>
         {% for teacher in teachers %}
-        <option value ="{{teacher.id}}">{{teacher.user.first_name}} {{teacher.user.last_name}} ({{teacher.user.username}})</option>
+        <option value ="{{teacher.id}} " {% if department.hod.id == teacher.id %} selected {% endif %} >{{teacher.user.first_name}} {{teacher.user.last_name}} ({{teacher.user.username}})</option>
         {% endfor %}
     </select>
 </div>
