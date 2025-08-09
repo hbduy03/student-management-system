@@ -45,7 +45,7 @@
                                  </div>
                                  <div class="col-12 col-sm-6">
                                     <div class="form-group">
-                                       <label>Gender</label>
+                                       <label>Gender </label>
                                        <select class="form-control" name="gender">
                                           <option value = "Female" {% if teacher.gender == 'Female' %} selected {% endif %}>Female</option>
                                           <option value = "Male" {% if teacher.gender == 'Male' %} selected {% endif %}>Male</option>
@@ -77,7 +77,7 @@
                                     <div class="form-group">
                                        <label>Department</label>
                                        <select class="form-control" name="department">
-
+                                          <option value ="">Select Department</option>
                                           {% for department in departments %}
                                           <option value="{{ department.id }}" {% if teacher.department.id == department.id %} selected {% endif %}>{{ department.name }}</option>
                                           {% endfor %}
