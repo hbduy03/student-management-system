@@ -66,6 +66,7 @@
                                     <div class="form-group">
                                        <label>Class</label>
                                        <select class="form-control" name="student_class" required>
+                                          <option value ="">Select Department</option>
                                           {% for classroom in classrooms %}
                                           <option value ="{{classroom.id}}">{{classroom.name}}</option>
                                           {% endfor %}
@@ -88,8 +89,9 @@
                                     <div class="form-group">
                                        <label>Major</label>
                                        <select class="form-control" name="major">
-                                          {% for major in s %}
-                                          <option value ="{{majors.id}}">{{majors.name}}</option>
+                                          <option value ="">Select Department</option>
+                                          {% for major in majors %}
+                                          <option value ="{{major.id}}">{{major.name}}</option>
                                           {% endfor %}
                                        </select>
                                     </div>
