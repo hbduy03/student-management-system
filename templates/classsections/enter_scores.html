@@ -1,0 +1,37 @@
+{% extends 'Home/base.html' %}
+{% block body %}
+<div class="page-wrapper">
+<div class="content container-fluid">
+  <div class="page-header">
+    <h3>Nhập điểm cho {{ section.name }} - {{ section.subject.name }}</h3>
+  </div>
+
+  <form method="post">
+    {% csrf_token %}
+      {{ formset.management_form }}
+    <table class="table table-bordered">
+      <thead>
+        <tr>
+          <th>Sinh viên</th>
+          <th>Midterm</th>
+          <th>Final</th>
+          <th>Ghi chú</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for form in formset %}
+        <tr>
+            {{form.id}}
+          <td>{{ form.instance.student.user.first_name }} {{ form.instance.student.user.last_name }}</td>
+          <td>{{ form.midterm }}</td>
+          <td>{{ form.final }}</td>
+          <td>{{ form.note }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <button type="submit" class="btn btn-primary">Lưu</button>
+  </form>
+</div>
+</div>
+{% endblock %}

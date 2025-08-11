@@ -1,0 +1,78 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="page-wrapper">
+<div class="content container-fluid">
+
+<div class="page-header">
+<div class="row align-items-center">
+<div class="col">
+<h3 class="page-title">Add Subject</h3>
+<ul class="breadcrumb">
+<li class="breadcrumb-item"><a href="{% url 'subject_list' %}">Subject</a></li>
+<li class="breadcrumb-item active">Add Subject</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-12">
+<div class="card">
+<div class="card-body">
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+<form method="post" action="{%url 'add_subject' %}">
+    {% csrf_token %}
+<div class="row">
+<div class="col-12">
+<h5 class="form-title"><span>Subject Details</span></h5>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Subject ID</label>
+<input type="text" name="subject_id" class="form-control">
+</div>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Subject Name</label>
+<input type="text" name="name" class="form-control">
+</div>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Attribute</label>
+<input type="text" name="attribute" class="form-control">
+</div>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Major</label>
+<select class="form-control" name="major">
+<option value ="">Select Major</option>
+{% for major in majors %}
+<option value ="{{major.id}}">{{ major.name }}</option>
+{% endfor %}
+</select>
+</div>
+</div>
+<div class="col-12">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}
