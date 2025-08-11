@@ -26,6 +26,7 @@ def add_teacher(request):
         department_obj = None
         if email:
             if CustomUser.objects.filter(email = email).exists():
+                messages.warning(request, "Email already exists !")
                 return redirect('add_teacher')
         if department:
             department_obj = Department.objects.get(id=department)
@@ -86,6 +87,13 @@ def teacher_list(request):
 def edit_teacher(request, slug):
     teacher = get_object_or_404(Teacher, slug=slug)
     user = teacher.user if hasattr(teacher, 'user') else None
+    department = Department.objects.all()
+    classrooms = Classroom.objects.all()
+    context = {
+        'teacher': teacher,
+        'departments': department,
+        'classrooms': classrooms,
+    }
     if request.method == 'POST':
         first_name = request.POST.get('first_name')
         last_name = request.POST.get('last_name')
@@ -97,6 +105,10 @@ def edit_teacher(request, slug):
         address = request.POST.get('address')
         teacher_image = request.FILES.get('teacher_image')
         department_obj = None
+        if email:
+            if CustomUser.objects.filter(email = email).exclude(id=teacher.user.id).exists():
+                messages.warning(request, "Email already exist!")
+                return redirect('edit_teacher', teacher.slug)
         if department:
             department_obj = Department.objects.get(id=department)
         if teacher_image:
@@ -116,13 +128,6 @@ def edit_teacher(request, slug):
         teacher.department = department_obj
         teacher.save()
         return redirect('teacher_list')
-    department = Department.objects.all()
-    classrooms = Classroom.objects.all()
-    context = {
-        'teacher': teacher,
-        'departments': department,
-        'classrooms': classrooms,
-    }
     return render(request, 'teachers/edit-teacher.html', context)
 
 def view_teacher(request, slug):

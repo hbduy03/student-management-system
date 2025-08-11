@@ -3,6 +3,30 @@ from django.shortcuts import redirect, render
 from django.contrib.auth import authenticate, login, logout
 from .models import PasswordResetRequest, CustomUser
 from django.utils.crypto import get_random_string
+from django.http import HttpResponseForbidden
+# ---------- PERMISSION ----------
+def admin_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden("Your dont have permission to access this feature")
+
+        if not request.user.groups.filter(name='admins').exists():
+            return HttpResponseForbidden("Your dont have permission to access this feature")
+
+        return view_func(request, *args, **kwargs)
+    return wrapper
+
+def teacher_required(view_func):
+    def wrapper(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return HttpResponseForbidden("Your dont have permission to access this feature")
+
+        if not (request.user.groups.filter(name='teachers').exists() or
+                request.user.groups.filter(name='admins').exists()):
+            return HttpResponseForbidden("You don't have permission to access this feature")
+
+        return view_func(request, *args, **kwargs)
+    return wrapper
 
 # Hàm cho phép User tạo tài khoản, nhưng đã chuyển sang mô hình admin quản lý tạo tài khoản
 # def signup_views(request):
@@ -42,19 +66,9 @@ def login_view(request):
         user = authenticate(request, username = username, password = password)
         if user is not None:
             login(request, user)
-            messages.success(request,'Login sucecss')
-
-            if user.groups.filter(name='admins').exists():
-                return redirect ('admin_dashboard')
-            elif user.groups.filter(name='teachers').exists():
-                return redirect ('teacher_dashboard')
-            elif user.groups.filter(name='students').exists():
-                return redirect ('dashboard')
-            else:
-                messages.error(request, 'Inaled user role')
-                return redirect('index')
+            return redirect ('dashboard')
         else:
-            messages.error(request ,'inlvaed Cesles')
+            messages.error(request ,'Invalid user')
     return render (request, 'authentication/login.html')
 
 def forgot_password_view(request):
