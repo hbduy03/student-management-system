@@ -31,11 +31,11 @@ Hệ thống hỗ trợ CRUD (Create – Read – Update – Delete) cho các đ
   + Hệ thống nhận là lưu điểm số.
   + Hệ thống tự động chấm điểm (Overrall,GPA) , phân loại (rank) và chấm sinh viên đủ tiêu chí qua môn (Passed)
 -  Hệ thống thông háo:
-  + Gửi thông báo tới từng người dùng h
+  + Gửi thông báo tới từng người dùng.
   +  Cho phép đánh dấu đã đọc hoặc xóa thông báo.
   + Hiển thị thông báo trực tiếp trên giao diện dashboard.
 
 # Hình ảnh minh họa:
 <img width="1916" height="968" alt="image" src="https://github.com/user-attachments/assets/2b68085f-6866-4d10-b296-5b895b3c74c6" />
 
-    + Lưu ý: Vì đây là đố án Django đầu tiên của tôi và thời gian có giới hạn, nên tôi đã nhờ sự can thiệp của Chatbot để viết backend (Cụ thể phần ClassSection). Vì vậy, hãy thông cảm cho tôi, tôi mong bạn tìm được hữu ích từ đồ án này. Cảm ơn bạn vì đã dành thời gian xem qua.
+    + Lưu ý: Vì đây là đố án Django đầu tiên của tôi và thời gian có giới hạn, nên tôi đã nhờ sự can thiệp của Chatbot để viết backend (Cụ thể phần ClassSection). Vì vậy, hãy thông cảm cho tôi và tôi mong bạn tìm được hữu ích từ đồ án này. Cảm ơn bạn vì đã dành thời gian xem qua.
