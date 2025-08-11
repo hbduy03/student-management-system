@@ -36,5 +36,6 @@ Hệ thống hỗ trợ CRUD (Create – Read – Update – Delete) cho các đ
   + Hiển thị thông báo trực tiếp trên giao diện dashboard.
 
 # Hình ảnh minh họa:
-![Uploading image.png…]()
+<img width="1916" height="968" alt="image" src="https://github.com/user-attachments/assets/2b68085f-6866-4d10-b296-5b895b3c74c6" />
 
+# Lưu ý: Vì đây là đố án Django đầu tiên của tôi và thời gian có giới hạn. Nên tôi đã nhờ sự can thiệp của Chatbot để viết backend (Cụ thể phần ClassSection). Vì vậy, hãy thông cảm cho tôi.
