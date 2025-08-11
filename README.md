@@ -4,6 +4,7 @@ Hệ thống quản lý sinh viên được phát triển bằng Django Framewor
 - Django Admin: quản lý cấp cao, toàn quyền với hệ thống.
 - School Admin: quản lý trường học, giảng viên, và sinh viên.
 - Teacher: quản lý lớp được phân công, nhập điểm sinh viên.
+- Student: Xem thông tin.
 
 # Các công nghệ sử dụng:
 - Backend: Django 5.x, Python 3.x
