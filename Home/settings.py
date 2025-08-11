@@ -43,7 +43,6 @@ INSTALLED_APPS = [
     'teacher',
     'academic',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',

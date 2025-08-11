@@ -48,11 +48,34 @@ class SubjectDetail(models.Model):
     note    = models.CharField(max_length=255, null=True, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 
+    def save(self, *args, **kwargs):
+        if self.midterm is not None and self.final is not None:
+            self.overall = round((self.midterm + 2 * self.final) / 3, 2)
+            self.GPA = round(self.overall / 2, 2)  # ví dụ công thức tính GPA
+
+            if self.overall >= 8.5:
+                self.rank = 'A'
+                self.passed = True
+            elif self.overall >= 6.5:
+                self.rank = 'B'
+                self.passed = True
+            elif self.overall >= 5:
+                self.rank = 'C'
+                self.passed = True
+            elif self.overall >= 3.5:
+                self.rank = 'D'
+                self.passed = False
+            else:
+                self.rank = 'F'
+                self.passed = False
+
+        super().save(*args, **kwargs)
+
     def __str__(self):
         return f'{self.student.first_name} {self.student.last_name} ({self.student.student_id}) {self.overall} ({self.passed})'
 
 class Classroom(models.Model):
-    name = models.CharField(max_length=50)
+    name = models.CharField(max_length=50, unique=True)
     home_teacher = models.ForeignKey('teacher.Teacher', null=True,blank=True, on_delete=models.SET_NULL)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -62,10 +85,11 @@ class Classroom(models.Model):
         return self.name
 
 class ClassSection(models.Model):
-    classroom = models.ForeignKey(Classroom, null=True, blank=True, on_delete=models.SET_NULL)
+    name = models.CharField(max_length=50, unique=True)
+    classroom = models.ForeignKey(Classroom, on_delete=models.CASCADE)
     teacher = models.ForeignKey('teacher.Teacher', null=True, blank=True, on_delete=models.SET_NULL)
     students = models.ManyToManyField('student.Student', blank=True)
-    subjects = models.ManyToManyField(Subject, blank=True)
+    subject = models.ForeignKey(Subject, on_delete=models.CASCADE, null=True, blank=True)
     capacity = models.IntegerField()
     created_at = models.DateTimeField(auto_now_add=True)
 

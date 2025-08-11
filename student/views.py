@@ -5,6 +5,7 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 import os
 from academic.models import Department, Classroom  , Major
+from academic.views import admin_required, teacher_required
 from .models import *
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -12,6 +13,7 @@ from school.views import create_notification
 
 
 # Create your views here.
+@admin_required
 def add_student(request):
     if request.method == 'POST':
         first_name =  request.POST.get('first_name')
@@ -105,6 +107,7 @@ def add_student(request):
     }
     return render(request,'students/add-student.html', context)
 
+@admin_required
 def student_list(request):
     student_list = Student.objects.select_related('parent').all()
     context ={
@@ -129,6 +132,10 @@ def edit_student(request, slug):
         student_image = request.FILES.get('student_image')
         student_class_obj = None
         major_obj = None
+        if email:
+            if CustomUser.objects.filter(email = email).exclude(id=student.user.id).exists():
+                messages.warning(request, "Email already exist!")
+                return redirect('edit_student', student.slug)
         if student_class:
             student_class_obj = Classroom.objects.get(id=student_class)
         if major:
