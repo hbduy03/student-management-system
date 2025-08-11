@@ -1,0 +1,94 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="page-wrapper">
+<div class="content container-fluid">
+
+<div class="page-header">
+<div class="row align-items-center">
+<div class="col">
+<h3 class="page-title">Edit ClassSection</h3>
+<ul class="breadcrumb">
+<li class="breadcrumb-item"><a href="{% url 'section_list' %}">ClassSection</a></li>
+<li class="breadcrumb-item active">Edit ClassSection</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-12">
+<div class="card">
+<div class="card-body">
+{% if messages %}
+  {% for message in messages %}
+    <div class="alert alert-{{ message.tags }}">
+      {{ message }}
+    </div>
+  {% endfor %}
+{% endif %}
+<form method="post" action="{% url 'edit_section' classsection.id %}">
+    {% csrf_token %}
+<div class="row">
+<div class="col-12">
+<h5 class="form-title"><span>ClassSection Details</span></h5>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>ClassSection Name</label>
+<input type="text" name="name" value ="{{classsection.name}}" class="form-control">
+</div>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+   <label>Class</label>
+   <select class="form-control" name="classroom" required>
+      <option value="">Select Class</option>
+      {% for classroom in classrooms %}
+      <option value="{{ classroom.id }}" {% if classsection.classroom.id == classroom.id %} selected {% endif %}>{{ classroom.name }}</option>
+      {% endfor %}
+   </select>
+</div>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Teacher</label>
+<select class="form-control" name="teacher">
+<option value ="">Select Teacher</option>
+{% for teacher in teachers %}
+<option value ="{{teacher.id}} " {% if classsection.teacher.id == teacher.id %} selected {% endif %} >{{teacher.user.first_name}} {{teacher.user.last_name}} ({{teacher.user.username}})</option>
+{% endfor %}
+</select>
+</div>
+</div>
+<div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Subject</label>
+<select class="form-control" name="subject" required>
+  <option>Select Subject</option>
+  {% for subject in subjects %}
+  <option value="{{ subject.id }}" {% if classsection.subject.id == subject.id %} selected {% endif %}>{{ subject.name }}</option>
+  {% endfor %}
+</select>
+</div>
+</div>
+    <div class="col-12 col-sm-6">
+<div class="form-group">
+<label>Capacity</label>
+<input type="text" name="capacity" value="{{classsection.capacity}}" class="form-control">
+</div>
+</div>
+<div class="col-12">
+<button type="submit" class="btn btn-primary">Submit</button>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+{% endblock %}

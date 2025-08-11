@@ -9,7 +9,7 @@
                      <div class="col">
                         <h3 class="page-title">Edit Teachers</h3>
                         <ul class="breadcrumb">
-                           <li class="breadcrumb-item"><a href="teachers.html">Teachers</a></li>
+                           <li class="breadcrumb-item"><a href="{% url 'teacher_list' %}">Teachers</a></li>
                            <li class="breadcrumb-item active">Edit Teachers</li>
                         </ul>
                      </div>
@@ -19,6 +19,13 @@
                   <div class="col-sm-12">
                      <div class="card">
                         <div class="card-body">
+                           {% if messages %}
+                             {% for message in messages %}
+                               <div class="alert alert-{{ message.tags }}">
+                                 {{ message }}
+                               </div>
+                             {% endfor %}
+                           {% endif %}
                            <form method ="POST" enctype="multipart/form-data">
                               {% csrf_token %}
                               <div class="row">
