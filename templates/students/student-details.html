@@ -23,16 +23,16 @@
 <div class="about-info">
 <h4>About Me</h4>
 <div class="media mt-3">
-<img src="assets/img/user.jpg" class="mr-3" alt="...">
+<img src="{{ student.student_image.url }}" class="mr-3" alt="...">
 <div class="media-body">
 <ul>
 <li>
 <span class="title-span">Full Name : </span>
-<span class="info-span">{{student.first_name}}</span>
+<span class="info-span">{{student.user.first_name}} {{student.user.last_name}}</span>
 </li>
 <li>
-<span class="title-span">Department : </span>
-<span class="info-span">{{student.section}}</span>
+<span class="title-span">Major : </span>
+<span class="info-span">{{student.major.name}}</span>
 </li>
 <li>
 <span class="title-span">Mobile : </span>
@@ -47,15 +47,23 @@
 <span class="info-span">{{student.gender}}</span>
 </li>
 <li>
-<span class="title-span">DOB : </span>
-<span class="info-span">{{student.date_of_birth}}</span>
+<span class="title-span">Student Class : </span>
+<span class="info-span">{{student.student_class.name}}</span>
+</li>
+ <li>
+<span class="title-span">Father Name : </span>
+<span class="info-span">{{student.parent.father_name}}</span>
+</li>
+ <li>
+<span class="title-span">Mother  : </span>
+<span class="info-span">{{student.parent.mother_name}}</span>
 </li>
 </ul>
 </div>
 </div>
 <div class="row mt-3">
 <div class="col-md-12">
-<p>Hello I am Daisy Parks. Lorem Ipsum is simply dummy text of the printing and typesetting industry, simply dummy text of the printing and typesetting industry.</p>
+<p></p>
 </div>
 </div>
 <div class="row follow-sec">
@@ -81,17 +89,56 @@
 <div class="row mt-2">
 <div class="col-md-12">
 <h5>Permanent Address</h5>
-<p>480, Estern Avenue, Courtage area, New York</p>
+<p>{{student.parent.permanent_address}}</p>
 </div>
 </div>
 <div class="row mt-2">
 <div class="col-md-12">
 <h5>Present Address</h5>
-<p>480, Estern Avenue, Courtage area, New York</p>
+<p>{{student.parent.present_address}}</p>
 </div>
 </div>
 </div>
 </div>
+</div>
+ <div class="row mt-4">
+    <div class="col-md-12">
+        <h4>Scores</h4>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Subject</th>
+                    <th>Midterm</th>
+                    <th>Final</th>
+                    <th>Overall</th>
+                    <th>GPA</th>
+                    <th>Rank</th>
+                    <th>Passed</th>
+                    <th>Note</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for score in scores %}
+                <tr>
+                    <td>{{ score.subject.name }}</td>
+                    <td>{{ score.midterm }}</td>
+                    <td>{{ score.final }}</td>
+                    <td>{{ score.overall }}</td>
+                    <td>{{ score.GPA }}</td>
+                    <td>{{ score.rank }}</td>
+                    <td>
+                        {% if score.passed %}✅{% else %}❌{% endif %}
+                    </td>
+                    <td>{{ score.note }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="8" class="text-center">No score data</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 <div class="row mt-2">
 <div class="col-md-12">

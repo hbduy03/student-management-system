@@ -5,13 +5,14 @@ from django.utils import timezone
 from django.utils.crypto import get_random_string
 import os
 from academic.models import Department, Classroom  , Department
+from home_auth.views import admin_required
 from .models import *
 from django.contrib import messages
 from django.core.mail import send_mail
 from school.views import create_notification
 
 
-# Create your views here.
+@admin_required
 def add_teacher(request):
     if request.method == 'POST':
         first_name =  request.POST.get('first_name')
@@ -83,7 +84,7 @@ def teacher_list(request):
         'teacher_list': teacher_list,
     }
     return render(request,'teachers/teachers.html', context)
-
+@admin_required
 def edit_teacher(request, slug):
     teacher = get_object_or_404(Teacher, slug=slug)
     user = teacher.user if hasattr(teacher, 'user') else None
@@ -137,6 +138,7 @@ def view_teacher(request, slug):
     }
     return render(request,'teachers/teacher-details.html', context)
 
+@admin_required
 def delete_teacher(request, slug):
     if request.method == 'POST':
         teacher = get_object_or_404(Teacher, slug = slug)
