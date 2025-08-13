@@ -4,7 +4,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.utils import timezone
 from django.utils.crypto import get_random_string
 import os
-from academic.models import Department, Classroom  , Major
+from academic.models import Department, Classroom, Major, SubjectDetail
 from academic.views import admin_required, teacher_required
 from .models import *
 from django.contrib import messages
@@ -115,6 +115,7 @@ def student_list(request):
     }
     return render(request,'students/students.html', context)
 
+@admin_required
 def edit_student(request, slug):
     student = get_object_or_404(Student, slug =slug)
     parent = student.parent if hasattr(student, 'parent') else None
@@ -182,11 +183,15 @@ def edit_student(request, slug):
 
 def view_student(request, slug):
     student = get_object_or_404(Student, slug = slug)
+    scores = SubjectDetail.objects.filter(student=student).select_related('subject')
     context ={
-        'student': student
+        'student': student,
+        'scores': scores
     }
+
     return render(request,'students/student-details.html', context)
 
+@admin_required
 def delete_student(request, slug):
     if request.method == 'POST':
         student = get_object_or_404(Student, slug = slug)
