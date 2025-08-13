@@ -31,9 +31,9 @@ Hệ thống hỗ trợ CRUD (Create – Read – Update – Delete) cho các đ
   + Giảng viên thuộc về lớp học phần đó nhập điểm lên hệ thống
   + Hệ thống nhận là lưu điểm số.
   + Hệ thống tự động chấm điểm (Overrall,GPA) , phân loại (rank) và chấm sinh viên đủ tiêu chí qua môn (Passed)
--  Hệ thống thông háo:
+- Hệ thống thông háo:
   + Gửi thông báo tới từng người dùng.
-  +  Cho phép đánh dấu đã đọc hoặc xóa thông báo.
+  + Cho phép đánh dấu đã đọc hoặc xóa thông báo.
   + Hiển thị thông báo trực tiếp trên giao diện dashboard.
 
 # Hình ảnh minh họa:
