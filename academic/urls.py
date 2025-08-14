@@ -35,5 +35,6 @@ urlpatterns = [
     path('classsection/<str:id>', views.view_section, name='view_section'),
     path('classsection/<str:id>/add/', views.add_student_section, name='add_student_section'),
     path('classsection/<str:section_id>/enter-scores/', views.enter_scores, name='enter_scores'),
+    path('classsection/<str:id>/predict/', views.view_predict, name='view_predict'),
 
 ]

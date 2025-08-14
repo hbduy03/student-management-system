@@ -16,6 +16,9 @@
 </ul>
 </div>
     <div class="col-auto text-right float-right ml-auto">
+        <a href="{% url 'view_predict' section.id %}" class="btn btn-success">
+  <i class="fas fa-view"></i> Xem dự đoán
+</a>
         <a href="{% url 'enter_scores' section.id %}" class="btn btn-success">
   <i class="fas fa-edit"></i> Nhập điểm
 </a>
@@ -49,7 +52,13 @@
 <td>{{ subject.final }}</td>
     <td>{{ subject.overall }} ({{subject.rank}})</td>
      <td>
-          {% if subject.passed %}✅{% else %}❌{% endif %}
+            {% if subject.passed is not None %}
+                {% if subject.passed %}
+                    <span class="badge badge-success">PASS</span>
+                {% else %}
+                    <span class="badge badge-danger">FAIL</span>
+                {% endif %}
+            {% endif %}
         </td>
     <td>{{ subject.note }}</td>
 </tr>

@@ -1,13 +1,20 @@
 from django.shortcuts import render
 from django.contrib import messages
 from django.shortcuts import get_object_or_404, redirect, render
+from freezegun.config import settings
 from academic.models import Department, Subject, Major, Classroom, ClassSection, SubjectDetail
 from home_auth.views import admin_required, teacher_required
+from model_ai.models import StudentStatusModel
 from school.views import create_notification
 from student.models import Student
 from teacher.models import Teacher
 from django.forms import modelformset_factory
 from django.http import HttpResponseForbidden
+from pathlib import Path
+# ---------- LOAD STUDENT STATUS MODEL ----------
+BASE_DIR = Path(__file__).resolve().parents[1]
+MODEL_PATH = Path(BASE_DIR) / 'model_ai' / 'model' / 'student_scores.pkl'
+risk_model = StudentStatusModel(MODEL_PATH)
 
 # ---------- CRUD Department Object ----------
 @admin_required
@@ -456,8 +463,30 @@ def enter_scores(request, section_id):
         if formset.is_valid():
             formset.save()
             return redirect('view_section', id=section.id)
-
+    section.save()
     return render(request, 'classsections/enter_scores.html', {
         'section': section,
         'formset': formset
     })
+
+def view_predict(request, id):
+    section = get_object_or_404(ClassSection, id= id)
+    subjects = SubjectDetail.objects.filter(
+        subject=section.subject,
+        student__in=section.students.all()
+    ).select_related('student__user')
+    for subject in subjects:
+        try:
+            mid = float(getattr(subject, "midterm", 0) or 0)
+            prob_fail = risk_model.predict_proba(midterm=mid)
+            subject.ai_prob_fail = round(prob_fail * 100, 2)
+            subject.ai_label = "FAIL" if prob_fail >= 0.5 else "PASS"
+        except Exception as e:
+            subject.ai_prob_fail = None
+            subject.ai_label = f"ERR: {e}"
+    context = {
+        'section': section,
+        'subjects': subjects,
+    }
+    return render(request, 'classsections/student-predict.html', context)
+

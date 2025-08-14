@@ -3,8 +3,21 @@
 <div class="page-wrapper">
 <div class="content container-fluid">
   <div class="page-header">
-    <h3>Nhập điểm cho {{ section.name }} - {{ section.subject.name }}</h3>
+<div class="row align-items-center">
+<div class="col">
+<h3 class="page-title">ClassSection: {{ section.name }} - {{section.subject.name}}</h3>
+<ul class="breadcrumb">
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item"><a href="{% url 'section_list' %}">ClassSections</a></li>
+<li class="breadcrumb-item active">{{ section.name }}</li>
+</ul>
   </div>
+</div>
+</div>
+<div class="row">
+<div class="col-sm-12">
+<div class="card card-table">
+<div class="card-body">
 
   <form method="post">
     {% csrf_token %}
@@ -32,6 +45,10 @@
     </table>
     <button type="submit" class="btn btn-primary">Lưu</button>
   </form>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 {% endblock %}

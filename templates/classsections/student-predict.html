@@ -1,0 +1,63 @@
+{% extends 'Home/base.html' %}
+{% load static %}
+{% block body %}
+
+<div class="page-wrapper">
+<div class="content container-fluid">
+
+<div class="page-header">
+<div class="row align-items-center">
+<div class="col">
+<h3 class="page-title">ClassSections</h3>
+<ul class="breadcrumb">
+<li class="breadcrumb-item"><a href="{% url 'dashboard' %}">Dashboard</a></li>
+<li class="breadcrumb-item"><a href="{% url 'section_list' %}">ClassSections</a></li>
+<li class="breadcrumb-item active">{{ section.name }}</li>
+</ul>
+</div>
+<div class="col-auto text-right float-right ml-auto">
+<a href="#" class="btn btn-outline-primary mr-2"><i class="fas fa-download"></i> Download</a>
+<a href="{% url 'add_section' %}" class="btn btn-primary"><i class="fas fa-plus"></i></a>
+</div>
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-12">
+ <div class="card card-table">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-hover table-center mb-0">
+            <thead>
+              <tr>
+                <th>Student</th>
+                <th>Midterm</th>
+                <th>Fail Rate</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for s in subjects %}
+              <tr>
+                <td>{{ s.student.user.first_name }} {{ s.student.user.last_name }}</td>
+                <td>{{ s.midterm }}</td>
+                <td>
+                  {% if s.ai_prob_fail is not None %}
+                    {{ s.ai_prob_fail }}%
+                  {% else %}
+                    <span class="text-muted">N/A</span>
+                  {% endif %}
+                </td>
+              </tr>
+              {% empty %}
+              <tr><td colspan="5" class="text-center text-muted">No students.</td></tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

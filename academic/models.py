@@ -68,7 +68,11 @@ class SubjectDetail(models.Model):
             else:
                 self.rank = 'F'
                 self.passed = False
-
+        else:
+            self.overall = None
+            self.rank = None
+            self.GPA = None
+            self.passed = None
         super().save(*args, **kwargs)
 
     def __str__(self):
