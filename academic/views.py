@@ -336,7 +336,7 @@ def add_section(request):
         create_notification(request.user, f'Add classsection: {classsection.id}')
         messages.success(request, 'classsection added successfully')
     return render(request,'classsections/add-classsection.html', context)
-
+@teacher_required
 def section_list(request):
     section_list = ClassSection.objects.all()
     context ={
@@ -394,7 +394,7 @@ def delete_section(request, id):
         create_notification(request.user, f' Deleted section: {section.name }')
         return redirect('section_list')
     return HttpResponseForbidden()
-
+@teacher_required
 def view_section(request, id):
     section = get_object_or_404(ClassSection, id= id)
     subjects = SubjectDetail.objects.filter(
@@ -411,6 +411,7 @@ def view_section(request, id):
 def add_student_section(request, id):
     section = get_object_or_404(ClassSection, id= id)
     students = Student.objects.all()
+    subjects = Subject.objects.all()
     current_ids = section.students.values_list('id', flat=True)
     context = {
         'section': section,
@@ -430,7 +431,17 @@ def add_student_section(request, id):
         for student_id in selected_ids:
             if student_id not in current_ids:
                 section.students.add(student_id)
-
+                for subject in subjects:
+                    SubjectDetail.objects.get_or_create(
+                        student_id=student_id,
+                        subject=subject,
+                        defaults={
+                            'midterm': None,
+                            'final': None,
+                            'overall': None,
+                            'GPA': None
+                        }
+                    )
         return redirect('view_section', id= section.id)
     return render(request, 'classsections/add-student-section.html', context)
 

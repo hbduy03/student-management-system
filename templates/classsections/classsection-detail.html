@@ -48,9 +48,9 @@
 {% for subject in subjects %}
 <tr>
 <td>{{ subject.student.user.username }} {{ subject.student.user.first_name }} {{ subject.student.user.last_name }}</td>
-<td>{{ subject.midterm }}</td>
-<td>{{ subject.final }}</td>
-    <td>{{ subject.overall }} ({{subject.rank}})</td>
+<td>{{ subject.midterm|default:"" }}</td>
+<td>{{ subject.final|default:"" }}</td>
+    <td>{{ subject.overall|default:""  }} ({{subject.rank}})</td>
      <td>
             {% if subject.passed is not None %}
                 {% if subject.passed %}

@@ -1,6 +1,9 @@
 from django.http import HttpResponse, JsonResponse, HttpResponseForbidden
 from django.shortcuts import render
+from django.shortcuts import redirect
 
+from student.models import Student
+from teacher.models import Teacher
 from .models import UserNotification, Notification
 
 
@@ -33,3 +36,16 @@ def create_notification(user, message):
     noti = Notification.objects.create(message=message)
     UserNotification.objects.create(user=user, notification = noti)
 
+
+def my_profile(request):
+    user = request.user
+
+    if user.groups.filter(name='teachers').exists():
+        teacher = Teacher.objects.get(user=user)
+        return redirect('view_teacher', slug=teacher.slug)
+
+    elif user.groups.filter(name='students').exists():
+        student = Student.objects.get(user=user)
+        return redirect('view_student', slug=student.slug)
+
+    return redirect('dashboard')
