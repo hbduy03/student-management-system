@@ -8,14 +8,16 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, roc_auc_score
 
 BASE_DIR = Path(__file__).resolve().parents[1]
-csv_path = BASE_DIR /'model_ai' /'data' / 'student_scores.csv'
+csv_path = BASE_DIR /'model_ai' /'data' / 'student-mat.csv'
 out_dir = BASE_DIR /'model_ai' / 'model'
 out_dir.mkdir(parents=True, exist_ok=True)
 model_path = out_dir / 'student_scores.pkl'
 
-df = pd.read_csv(csv_path)
+df = pd.read_csv(csv_path ,sep=';')
 
-X = df[['Midterm']].values
+df['Label'] = (df['G3'] < 8).astype(int)
+
+X = df[['G2']].values
 y = df['Label'].values
 
 X_train, X_test, y_train, y_test = train_test_split(

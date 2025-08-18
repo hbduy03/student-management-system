@@ -30,6 +30,7 @@ def add_student(request):
         major_obj = None
         if email:
             if CustomUser.objects.filter(email = email).exists():
+                messages.warning(request, "Email already exist!")
                 return redirect('add_student')
         if student_class:
             student_class_obj = Classroom.objects.get(id=student_class)

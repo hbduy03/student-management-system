@@ -29,7 +29,6 @@
                                     <tr>
                                        <th>ID</th>
                                        <th>Name</th>
-                                       <th>Class</th>
                                        <th>DOB</th>
                                        <th>Department</th>
                                        <th>Mobile Number</th>
@@ -45,14 +44,13 @@
                                           <h2 class="table-avatar">
                                              <a href="{% url 'view_teacher' teacher.slug %}" class="avatar avatar-sm mr-2">
                                                   {% if teacher.teacher_image %}
-                                                    <img class="avatar-img rounded-circle" src="{{ teacher.teacher_image.url }}" alt="User Image">
+                                                    <img class="avatar-img rounded-circle" src="{{ teacher.teacher_image.url }}" alt="User Image" required>
                                                   {% else %}
                                                     <img class="avatar-img rounded-circle" src="" alt="No Image">
                                                   {% endif %}
                                              <a href="{% url 'view_teacher' teacher.slug %}">{{teacher.user.first_name}} {{teacher.user.last_name}}</a>
                                           </h2>
                                        </td>
-                                       <td>{{teacher.teacher_class}}</td>
                                        <td>{{teacher.date_of_birth|date:"d M Y"}}</td>
                                        <td>{{teacher.department.name}}</td>
                                        <td>{{teacher.mobile_number}}</td>

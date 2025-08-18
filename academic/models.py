@@ -76,7 +76,7 @@ class SubjectDetail(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.student.first_name} {self.student.last_name} ({self.student.student_id}) {self.overall} ({self.passed})'
+        return f'{self.student.user.first_name} {self.student.user.last_name} ({self.student.user.username,}) {self.overall} ({self.passed})'
 
 class Classroom(models.Model):
     name = models.CharField(max_length=50, unique=True)

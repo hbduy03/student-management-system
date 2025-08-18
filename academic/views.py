@@ -151,7 +151,7 @@ def edit_major(request, id):
 @admin_required
 def delete_major(request, id):
     if request.method == 'POST':
-        major = get_object_or_404(Subject, id = id)
+        major = get_object_or_404(Major, id = id)
         major.delete()
         create_notification(request.user, f' Deleted major: {major.major_id}')
         return redirect('major_list')
