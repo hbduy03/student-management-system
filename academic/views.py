@@ -489,7 +489,7 @@ def view_predict(request, id):
     for subject in subjects:
         try:
             mid = float(getattr(subject, "midterm", 0) or 0)
-            prob_fail = risk_model.predict_proba(midterm=mid)
+            prob_fail = risk_model.predict_proba(midterm=mid*2)
             subject.ai_prob_fail = round(prob_fail * 100, 2)
             subject.ai_label = "FAIL" if prob_fail >= 0.5 else "PASS"
         except Exception as e:

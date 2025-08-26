@@ -59,7 +59,7 @@ class SubjectDetail(models.Model):
             elif self.overall >= 6.5:
                 self.rank = 'B'
                 self.passed = True
-            elif self.overall >= 5:
+            elif self.overall >= 4:
                 self.rank = 'C'
                 self.passed = True
             elif self.overall >= 3.5:
@@ -76,7 +76,9 @@ class SubjectDetail(models.Model):
         super().save(*args, **kwargs)
 
     def __str__(self):
-        return f'{self.student.user.first_name} {self.student.user.last_name} ({self.student.user.username,}) {self.overall} ({self.passed})'
+        if self.student and hasattr(self.student, 'user') and self.student.user:
+            return f'{self.student.user.first_name} {self.student.user.last_name} ({self.student.user.username}) {self.overall} ({self.passed})'
+        return f'Unknown Student - {self.overall} ({self.passed})'
 
 class Classroom(models.Model):
     name = models.CharField(max_length=50, unique=True)
