@@ -37,7 +37,8 @@ Hệ thống hỗ trợ CRUD (Create – Read – Update – Delete) cho các đ
   + Hiển thị thông báo trực tiếp trên giao diện dashboard.
 - Mô hình học máy Logicstic Regression:
   + Sử dụng Dataset: https://archive.ics.uci.edu/dataset/320/student+performance
-  + Mô hình tính toán dựa vào đặc trưng 'Midterm Test' của học sinh và dự đoán phần trăm sinh viên rớt môn thông qua nhãn 'Final Test'
+  + Mô hình tính toán dựa vào đặc trưng 'Midterm Test' của học sinh
+  + Dự đoán phần trăm sinh viên rớt môn thông qua nhãn 'Final Test'
 # Hình ảnh minh họa:
 <img width="1916" height="968" alt="image" src="https://github.com/user-attachments/assets/2b68085f-6866-4d10-b296-5b895b3c74c6" />
 
